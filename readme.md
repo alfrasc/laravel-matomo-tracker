@@ -2,8 +2,6 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
 
 ## About
 
@@ -112,8 +110,6 @@ BSD-3-Clause. Please see the [license file](license.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/alfrasc/laravel-matomo-tracker.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/alfrasc/laravel-matomo-tracker.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/alfrasc/laravel-matomo-tracker/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/12345678/shield
 
 [link-packagist]: https://packagist.org/packages/alfrasc/laravel-matomo-tracker
 [link-downloads]: https://packagist.org/packages/alfrasc/laravel-matomo-tracker
