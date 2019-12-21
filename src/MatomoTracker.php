@@ -2,7 +2,6 @@
 
 namespace Alfrasc\MatomoTracker;
 
-use Exception;
 use \Illuminate\Http\Request;
 use PiwikTracker;
 
@@ -142,120 +141,6 @@ class MatomoTracker extends PiwikTracker
     {
         $this->setCustomTrackingParameter('dimension' . $customDimensionId, $value);
         return $this;
-    }
-
-    /**
-     * Sets some custom dimensions
-     *
-     * @param array $customDimensions Is an array of objects with the fields 'id' and 'value'
-     *
-     * @return $this
-     */
-    public function setCustomDimensions(array $customDimensions)
-    {
-        foreach ($customDimensions as $key => $customDimension) {
-            $this->checkCustomDimension($customDimension);
-            $this->setCustomDimension($key, $customDimension);
-        }
-
-        return $this;
-    }
-
-    /** checks if custom dimension data is correct
-     *
-     * @param object $customDimension
-     *
-     * @return bool
-     */
-    private function checkCustomDimension(object $customDimension): bool
-    {
-
-        if (gettype($customDimension) !== 'object') {
-            throw new Exception('Key is not of type object in custom dimension.');
-        }
-
-        if (property_exists($customDimension, 'id')) {
-            if (gettype($customDimension->id) !== 'integer') {
-                throw new Exception('Id is not of type integer in custom dimension.');
-            }
-        } else {
-            throw new Exception('Missing property \'id\' in custom dimension.');
-        }
-
-        if (property_exists($customDimension, 'value')) {
-            if (gettype($customDimension->value) !== 'string') {
-                throw new Exception('Value is not of type string in custom dimension.');
-            }
-        } else {
-            throw new Exception('Missing property \'id\' in custom dimension.');
-        }
-
-        return true;
-    }
-
-    /**
-     * Sets some custom variables
-     *
-     * @param array $customVariables
-     */
-    public function setCustomVariables(array $customVariables)
-    {
-        foreach ($customVariables as $customVariable) {
-            $this->checkCustomVariable($customVariable);
-
-            $this->setCustomVariable($customVariable->id, $customVariable->name, $customVariable->value, property_exists($customVariable, 'scope') ? $customVariable->scope : 'visit');
-        }
-
-        return $this;
-    }
-
-    /** checks if custom variable data is correct
-     *
-     * @param object $customVariable
-     *
-     * @return bool
-     */
-    private function checkCustomVariable(object $customVariable): bool
-    {
-        if (gettype($customVariable) !== 'object') {
-            throw new Exception('Key is not of type object in custom variable.');
-        }
-
-        if (property_exists($customVariable, 'id')) {
-            if (gettype($customVariable->id) !== 'integer') {
-                throw new Exception('Id is not of type integer in custom variable.');
-            }
-        } else {
-            throw new Exception('Missing property \'id\' in custom variable.');
-        }
-
-        if (property_exists($customVariable, 'name')) {
-            if (gettype($customVariable->name) !== 'string') {
-                throw new Exception('Name is not of type string in custom variable.');
-            }
-        } else {
-            throw new Exception('Missing property \'id\' in custom variable.');
-        }
-
-        if (property_exists($customVariable, 'value')) {
-            if (gettype($customVariable->value) !== 'string') {
-                throw new Exception('Value is not of type string in custom variable.');
-            }
-        } else {
-            throw new Exception('Missing property \'id\' in custom variable.');
-        }
-
-        if (property_exists($customVariable, 'scope')) {
-            if (gettype($customVariable->scope) !== 'string') {
-                throw new Exception('Scope is not of type string in custom variable.');
-            }
-
-            if (!array_search($customVariable->scope, ['visit', 'page'])) {
-                throw new Exception('Scope is not valid in custom variable. Use either \'visit\' or \'page\'');
-            }
-        }
-
-        return true;
     }
 
     /** Shorthand for doTrackAction($actionUrl, 'download')
