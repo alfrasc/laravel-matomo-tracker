@@ -52,7 +52,9 @@ You can use the facade to track.
 MatomoTracker::doTrackPageView('Page Title')
 ```
 
-### Basic functionality
+### Tracking
+
+#### Basic functionality
 
 Please see the https://developer.matomo.org/api-reference/PHP-Piwik-Tracker page for basic method documentation.
 
@@ -67,7 +69,7 @@ MatomoTracker::doTrackDownload($actionUrl);
 MatomoTracker::doTrackOutlink($actionUrl);
 ```
 
-### Queues
+#### Queues
 
 For queuing you can use these functions.
 ``` bash
@@ -85,6 +87,17 @@ MatomoTracker::queueBulkTrack()
 ```
 
 For setting up queues, find the documentation on https://laravel.com/docs/6.x/queues.
+
+### Settings
+
+Have a look in the https://developer.matomo.org/api-reference/PHP-Piwik-Tracker page for basic settings documentation.
+
+Additionaly these settings are available:
+``` bash
+MatomoTracker::setCustomDimension(int $id, string $value) // only applicable if the custom dimensions plugin is installed on the Matomo installation
+MatomoTracker::setCustomDimensions([]) // array of custom dimension objects {id: <int>, value: <string>} // bulk insert of custom dimensions and basic type checking
+MatomoTracker::setCustomVariables([]) // array of custom variable objects {id: <int>, name: <string>, value: <string>, scope: <string>} // bulk insert of custom variables and basic type checking
+```
 
 ## Change log
 
