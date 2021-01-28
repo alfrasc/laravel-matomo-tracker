@@ -1,6 +1,6 @@
 {
     "name": "alfrasc/laravel-matomo-tracker",
-    "description": "A Laravel facade/wrapper for the piwik/piwik-php-tracker for server side Matomo tracking.",
+    "description": "A Laravel facade/wrapper for the matomo/matomo-php-tracker for server side Matomo tracking.",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -12,7 +12,7 @@
     "homepage": "https://github.com/alfrasc/matomotracker",
     "keywords": ["Laravel", "Matomo PHP Tracker", "Piwik", "Piwik PHP Tracker", "server side tracking"],
     "require": {
-        "piwik/piwik-php-tracker": "^1.5"
+        "matomo/matomo-php-tracker": "^3.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
@@ -33,10 +33,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Alfrasc\\MatomoTracker\\MatomoTrackerServiceProvider"
+                "Alfrasc\\MatomoTracker\\LaravelMatomoTrackerServiceProvider"
             ],
             "aliases": {
-                "MatomoTracker": "Alfrasc\\MatomoTracker\\Facades\\MatomoTracker"
+                "LaravelMatomoTracker": "Alfrasc\\MatomoTracker\\Facades\\LaravelMatomoTracker"
             }
         }
     }
