@@ -1,4 +1,4 @@
-# MatomoTracker
+# LaravelMatomoTracker
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -9,7 +9,7 @@ The `alfrasc\laravel-matomo-tracker` Laravel package is a wrapper for the `piwik
 
 ## Features
 
- * MatomoTracker Facade
+ * LaravelMatomoTracker Facade
  * Queued tracking requests in Laravel queue
 
 Feel free to suggest new features.
@@ -49,7 +49,7 @@ That's it!
 You can use the facade to track.
 
 ``` bash
-MatomoTracker::doTrackPageView('Page Title')
+LaravelMatomoTracker::doTrackPageView('Page Title')
 ```
 
 ### Tracking
@@ -61,29 +61,29 @@ Please see the https://developer.matomo.org/api-reference/PHP-Piwik-Tracker page
 Additionally there are some Methods to simplyfy the usage:
 ``` bash
 // instead of using 
-MatomoTracker::doTrackAction($actionUrl, 'download') // or
-MatomoTracker::doTrackAction($actionUrl, 'link')
+LaravelMatomoTracker::doTrackAction($actionUrl, 'download') // or
+LaravelMatomoTracker::doTrackAction($actionUrl, 'link')
 
 // you can use this
-MatomoTracker::doTrackDownload($actionUrl);
-MatomoTracker::doTrackOutlink($actionUrl);
+LaravelMatomoTracker::doTrackDownload($actionUrl);
+LaravelMatomoTracker::doTrackOutlink($actionUrl);
 ```
 
 #### Queues
 
 For queuing you can use these functions.
 ``` bash
-MatomoTracker::queuePageView(string $documentTitle)
-MatomoTracker::queueEvent(string $category, string $action, $name = false, $value = false)
-MatomoTracker::queueContentImpression(string $contentName, string $contentPiece = 'Unknown', $contentTarget = false)
-MatomoTracker::queueContentInteraction(string $interaction, string $contentName, string $contentPiece = 'Unknown', $contentTarget = false)
-MatomoTracker::queueSiteSearch(string $keyword, string $category = '',  $countResults = false)
-MatomoTracker::queueGoal($idGoal, $revencue = 0.0)
-MatomoTracker::queueDownload(string $actionUrl)
-MatomoTracker::queueOutlink(string $actionUrl)
-MatomoTracker::queueEcommerceCartUpdate(float $grandTotal)
-MatomoTracker::queueEcommerceOrder(float $orderId, float $grandTotal, float $subTotal = 0.0, float $tax = 0.0, float $shipping = 0.0,  float $discount = 0.0)
-MatomoTracker::queueBulkTrack()
+LaravelMatomoTracker::queuePageView(string $documentTitle)
+LaravelMatomoTracker::queueEvent(string $category, string $action, $name = false, $value = false)
+LaravelMatomoTracker::queueContentImpression(string $contentName, string $contentPiece = 'Unknown', $contentTarget = false)
+LaravelMatomoTracker::queueContentInteraction(string $interaction, string $contentName, string $contentPiece = 'Unknown', $contentTarget = false)
+LaravelMatomoTracker::queueSiteSearch(string $keyword, string $category = '',  $countResults = false)
+LaravelMatomoTracker::queueGoal($idGoal, $revencue = 0.0)
+LaravelMatomoTracker::queueDownload(string $actionUrl)
+LaravelMatomoTracker::queueOutlink(string $actionUrl)
+LaravelMatomoTracker::queueEcommerceCartUpdate(float $grandTotal)
+LaravelMatomoTracker::queueEcommerceOrder(float $orderId, float $grandTotal, float $subTotal = 0.0, float $tax = 0.0, float $shipping = 0.0,  float $discount = 0.0)
+LaravelMatomoTracker::queueBulkTrack()
 ```
 
 For setting up queues, find the documentation on https://laravel.com/docs/6.x/queues.
@@ -94,9 +94,9 @@ Have a look in the https://developer.matomo.org/api-reference/PHP-Piwik-Tracker 
 
 Additionaly these settings are available:
 ``` bash
-MatomoTracker::setCustomDimension(int $id, string $value) // only applicable if the custom dimensions plugin is installed on the Matomo installation
-MatomoTracker::setCustomDimensions([]) // array of custom dimension objects {id: <int>, value: <string>} // bulk insert of custom dimensions and basic type checking
-MatomoTracker::setCustomVariables([]) // array of custom variable objects {id: <int>, name: <string>, value: <string>, scope: <string>} // bulk insert of custom variables and basic type checking
+LaravelMatomoTracker::setCustomDimension(int $id, string $value) // only applicable if the custom dimensions plugin is installed on the Matomo installation
+LaravelMatomoTracker::setCustomDimensions([]) // array of custom dimension objects {id: <int>, value: <string>} // bulk insert of custom dimensions and basic type checking
+LaravelMatomoTracker::setCustomVariables([]) // array of custom variable objects {id: <int>, name: <string>, value: <string>, scope: <string>} // bulk insert of custom variables and basic type checking
 ```
 
 ## Change log
