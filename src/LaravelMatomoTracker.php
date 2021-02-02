@@ -47,9 +47,16 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->eventCustomVar = false;
         $this->forcedDatetime = false;
         $this->forcedNewVisit = false;
-        $this->generationTime = false;
+        $this->networkTime = false;
+        $this->serverTime = false;
+        $this->transferTime = false;
+        $this->domProcessingTime = false;
+        $this->domCompletionTime = false;
+        $this->onLoadTime = false;
         $this->pageCustomVar = false;
+        $this->ecommerceView = array();
         $this->customParameters = array();
+        $this->customDimensions = array();
         $this->customData = false;
         $this->hasCookies = false;
         $this->token_auth = false;
@@ -96,6 +103,9 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->configCookiesDisabled = false;
         $this->configCookiePath = self::DEFAULT_COOKIE_PATH;
         $this->configCookieDomain = '';
+        $this->configCookieSameSite = '';
+        $this->configCookieSecure = false;
+        $this->configCookieHTTPOnly = false;
 
         $this->currentTs = time();
         $this->createTs = $this->currentTs;
