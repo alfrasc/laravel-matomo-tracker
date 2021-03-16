@@ -476,4 +476,15 @@ class LaravelMatomoTracker extends MatomoTracker
         })
             ->onQueue($this->queue);
     }
+
+    /**
+     * Called after unserializing (e.g. after popping from the queue). Re-set
+     * self::$URL, as only non-static properties have been applied.
+     */
+    public function __wakeup()
+    {
+        if (!empty($this->apiUrl)) {
+            self::$URL = $this->apiUrl;
+        }
+    }
 }
