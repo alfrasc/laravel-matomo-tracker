@@ -140,19 +140,21 @@ class LaravelMatomoTracker extends MatomoTracker
         return $this;
     }
 
-    /**
-     * Sets a custom dimension
-     *
-     * @param int $customDimensionId
-     * @param string $value
-     *
-     * @return $this
-     */
-    public function setCustomDimension($id, $value)
-    {
-        $this->setCustomTrackingParameter('dimension' . $id, $value);
-        return $this;
-    }
+    // Legacy code
+    // /**
+    //  * Sets a custom dimension
+    //  *
+    //  * @param int $customDimensionId
+    //  * @param string $value
+    //  *
+    //  * @return $this
+    //  */
+    // public function setCustomDimension($id, $value)
+    // {
+    //     $this->setCustomTrackingParameter('dimension' . $id, $value);
+    //     return $this;
+    // }
+
     /**
      * Sets some custom dimensions
      *
