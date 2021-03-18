@@ -4,9 +4,9 @@ namespace Alfrasc\MatomoTracker;
 
 use Exception;
 use \Illuminate\Http\Request;
-use PiwikTracker;
+use \MatomoTracker;
 
-class MatomoTracker extends PiwikTracker
+class LaravelMatomoTracker extends MatomoTracker
 {
 
     /** @var string */
@@ -20,7 +20,7 @@ class MatomoTracker extends PiwikTracker
 
     public function __construct(?Request $request, ?int $idSite = null, ?string $apiUrl = null, ?string $tokenAuth = null)
     {
-        $this->tokenAuth = $tokenAuth ?: config('matomotracker.tockenAuth');
+        $this->tokenAuth = $tokenAuth ?: config('matomotracker.tokenAuth');
         $this->queue = config('matomotracker.queue', 'matomotracker');
 
         $this->setTokenAuth(!is_null($tokenAuth) ? $tokenAuth : config('matomotracker.tokenAuth'));
@@ -47,9 +47,16 @@ class MatomoTracker extends PiwikTracker
         $this->eventCustomVar = false;
         $this->forcedDatetime = false;
         $this->forcedNewVisit = false;
-        $this->generationTime = false;
+        $this->networkTime = false;
+        $this->serverTime = false;
+        $this->transferTime = false;
+        $this->domProcessingTime = false;
+        $this->domCompletionTime = false;
+        $this->onLoadTime = false;
         $this->pageCustomVar = false;
+        $this->ecommerceView = array();
         $this->customParameters = array();
+        $this->customDimensions = array();
         $this->customData = false;
         $this->hasCookies = false;
         $this->token_auth = false;
@@ -96,6 +103,9 @@ class MatomoTracker extends PiwikTracker
         $this->configCookiesDisabled = false;
         $this->configCookiePath = self::DEFAULT_COOKIE_PATH;
         $this->configCookieDomain = '';
+        $this->configCookieSameSite = '';
+        $this->configCookieSecure = false;
+        $this->configCookieHTTPOnly = false;
 
         $this->currentTs = time();
         $this->createTs = $this->currentTs;
@@ -138,7 +148,7 @@ class MatomoTracker extends PiwikTracker
      *
      * @return $this
      */
-    public function setCustomDimension(int $customDimensionId, string $value)
+    public function setCustomDimension($id, $value)
     {
         $this->setCustomTrackingParameter('dimension' . $customDimensionId, $value);
         return $this;
@@ -465,5 +475,16 @@ class MatomoTracker extends PiwikTracker
             $this->doBulkTrack();
         })
             ->onQueue($this->queue);
+    }
+
+    /**
+     * Called after unserializing (e.g. after popping from the queue). Re-set
+     * self::$URL, as only non-static properties have been applied.
+     */
+    public function __wakeup()
+    {
+        if (!empty($this->apiUrl)) {
+            self::$URL = $this->apiUrl;
+        }
     }
 }
