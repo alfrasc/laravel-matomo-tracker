@@ -20,5 +20,10 @@ return [
     /**
      * For queuing the tracking you can use custom queue names. Use 'default' if you want to run the queued items within the standard queue.
      */
-    'queue' => env('MATOMO_QUEUE', 'matomotracker')
+    'queue' => env('MATOMO_QUEUE', 'matomotracker'),
+
+    /**
+     * Optionally set a custom queue connection. Laravel defaults to "sync".
+     */
+    'queueConnection' => env('MATOMO_QUEUE_CONNECTION', 'default'),
 ];

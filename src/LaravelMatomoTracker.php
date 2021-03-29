@@ -17,11 +17,14 @@ class LaravelMatomoTracker extends MatomoTracker
     protected $tokenAuth;
     /** @var string */
     protected $queue;
+    /** @var string */
+    protected $queueConnection;
 
     public function __construct(?Request $request, ?int $idSite = null, ?string $apiUrl = null, ?string $tokenAuth = null)
     {
         $this->tokenAuth = $tokenAuth ?: config('matomotracker.tokenAuth');
         $this->queue = config('matomotracker.queue', 'matomotracker');
+        $this->queueConnection = config('matomotracker.queueConnection', 'default');
 
         $this->setTokenAuth(!is_null($tokenAuth) ? $tokenAuth : config('matomotracker.tokenAuth'));
         $this->setMatomoVariables($request, $idSite, $apiUrl);
@@ -302,6 +305,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($documentTitle) {
             $this->doTrackPageView($documentTitle);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -319,6 +323,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($category, $action, $name, $value) {
             $this->doTrackEvent($category, $action, $name, $value);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -335,6 +340,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($contentName, $contentPiece, $contentTarget) {
             $this->doTrackContentImpression($contentName, $contentPiece, $contentTarget);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -352,6 +358,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($interaction, $contentName, $contentPiece, $contentTarget) {
             $this->doTrackContentInteraction($interaction, $contentName, $contentPiece, $contentTarget);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -368,6 +375,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($keyword, $category, $countResults) {
             $this->doTrackSiteSearch($keyword, $category, $countResults);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -383,6 +391,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($idGoal, $revencue) {
             $this->doTrackGoal($idGoal, $revencue);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -397,6 +406,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($actionUrl) {
             $this->doTrackDownload($actionUrl);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -411,6 +421,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($actionUrl) {
             $this->doTrackOutlink($actionUrl);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -425,6 +436,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () use ($grandTotal) {
             $this->doTrackEcommerceCartUpdate($grandTotal);
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -464,6 +476,7 @@ class LaravelMatomoTracker extends MatomoTracker
                 $discount
             );
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
@@ -476,6 +489,7 @@ class LaravelMatomoTracker extends MatomoTracker
         dispatch(function () {
             $this->doBulkTrack();
         })
+            ->onConnection($this->queueConnection)
             ->onQueue($this->queue);
     }
 
