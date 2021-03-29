@@ -48,7 +48,8 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->ecommerceItems = array();
         $this->attributionInfo = false;
         $this->eventCustomVar = false;
-        $this->forcedDatetime = false;
+        // force-set time, so queued commands use the right request time
+        $this->forcedDatetime = time();
         $this->forcedNewVisit = false;
         $this->networkTime = false;
         $this->serverTime = false;
