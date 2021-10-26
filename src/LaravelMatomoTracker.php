@@ -26,6 +26,16 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->setTokenAuth(!is_null($tokenAuth) ? $tokenAuth : config('matomotracker.tokenAuth'));
         $this->setMatomoVariables($request, $idSite, $apiUrl);
     }
+    
+    /**
+     * Re-set the $URL static property when deserialized
+     */
+    public function __wakeup()
+    {
+        if (!empty($this->apiUrl)) {
+            self::$URL = $this->apiUrl;
+        }
+    }
 
     /**
      * Overrides the PiwikTracker method and uses the \Illuminate\Http\Request for filling in the server vars.
@@ -81,7 +91,7 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->ip = !empty($request->server('REMOTE_ADDR')) ? $request->server('REMOTE_ADDR') : false;
         $this->acceptLanguage = !empty($request->server('HTTP_ACCEPT_LANGUAGE')) ? $request->server('HTTP_ACCEPT_LANGUAGE') : false;
         $this->userAgent = !empty($request->server('HTTP_USER_AGENT')) ? $request->server('HTTP_USER_AGENT') : false;
-        if (!empty($apiUrl)) {
+        if (!empty($this->apiUrl)) {
             self::$URL = $this->apiUrl;
         }
 
