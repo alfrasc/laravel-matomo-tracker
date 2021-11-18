@@ -39,6 +39,7 @@ MATOMO_URL="https://your.matomo-install.com"
 MATOMO_SITE_ID=1
 MATOMO_AUTH_TOKEN="00112233445566778899aabbccddeeff"
 MATOMO_QUEUE="matomotracker"
+MATOMO_QUEUE_CONNECTION="default"
 [...]
 ```
 
