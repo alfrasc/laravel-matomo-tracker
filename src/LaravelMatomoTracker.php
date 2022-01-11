@@ -82,8 +82,8 @@ class LaravelMatomoTracker extends MatomoTracker
         $this->urlReferrer = !empty($request->server('HTTP_REFERER')) ? $request->server('HTTP_REFERER') : false;
         $this->pageCharset = self::DEFAULT_CHARSET_PARAMETER_VALUES;
         $this->pageUrl = self::getCurrentUrl();
-        $this->ip = !empty($request->server('REMOTE_ADDR')) ? $request->server('REMOTE_ADDR') : false;
-        $this->acceptLanguage = !empty($request->server('HTTP_ACCEPT_LANGUAGE')) ? $request->server('HTTP_ACCEPT_LANGUAGE') : false;
+        $this->ip = !empty($request->ip()) ? $request->ip() : false;
+        $this->acceptLanguage = !empty($request->userAgent()) ? $request->userAgent() : false;
         $this->userAgent = !empty($request->server('HTTP_USER_AGENT')) ? $request->server('HTTP_USER_AGENT') : false;
         if (!empty($apiUrl)) {
             self::$URL = $this->apiUrl;
