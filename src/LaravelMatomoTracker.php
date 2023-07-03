@@ -120,6 +120,7 @@ class LaravelMatomoTracker extends MatomoTracker
 
         // Allow debug while blocking the request
         $this->requestTimeout = 600;
+        $this->requestConnectTimeout = 300;
         $this->doBulkRequests = false;
         $this->storedTrackingActions = array();
 
